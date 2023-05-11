@@ -1,0 +1,319 @@
+<!DOCTYPE HTML>
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Text Clustering - Cheting Meng</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+				<!--Auto Translate-->
+				<div id="google_translate_element" style="color:white;">You can translate the content of this page by selecting a language in the select box. But I suggest that the best display would be in English.</div>
+					
+				<script type="text/javascript">
+				function googleTranslateElementInit() {
+				  new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+				}
+				</script>					
+				<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+				
+				<!-- Header -->
+					<header id="header">
+						<a href="index.html" class="logo">Homepage</a>
+					</header>
+				
+				
+				<!-- Nav -->
+					<nav id="nav">
+						<ul class="links">
+							<li ><a href="index.html">Homepage</a></li>
+							<li><a href="Background.html">My Background</a></li>
+							<li class="active"><a href="index.html#DS">Data Science</a></li>
+							<li><a href="index.html#DL">Deep Learning</a></li>
+							
+						</ul>
+						<ul class="icons">
+							<!--<li><a href="#" class="icon brands alt fa-twitter"><span class="label">Twitter</span></a></li>-->
+							<!--<li><a href="#" class="icon brands alt fa-facebook-f"><span class="label">Facebook</span></a></li>-->
+							<!--<li><a href="#" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li>-->
+							<li><a href="https://www.linkedin.com/in/Che-Ting-Meng1215" class="icon brands alt fa-linkedin"><span class="label">LinkedIn</span></a></li>
+							<li><a href="https://github.com/PsyDak-Meng" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- Post -->
+							<section class="post">
+								<header class="major">
+									<span class="date">Fall, 2022</span>
+									<h1>Text Clusting<br />
+									With EM Algorithm</h1>
+									<p>With the provided dataset, cluster the documents into n topics by fitting to multinomial distribution model, use the EM algorithm for converging the parameters.</p>
+									<a href="https://github.com/PsyDak-Meng/CSE6740-Computational_Data_Analysis/tree/main/homework2" class="icon brands alt fa-github">To Project GitHub Page<span class="label"></span></a>
+								</header>
+
+								<ul><p><b>mycluster.py</b> : file contaning the EM algorithm.</p>
+								<li>In this project we are categorizing the documents into 4 clusters.</li>
+								<li>Each document is vectorized into a vector using bag-of-word with length V (vocabulary size), collaboratively they form the matrx T.</li>	
+								<li>Here the initialization assumes equal probabilities for matrix &Pi;c= 1/size(T), 
+									because EM algorithm is not gauranteed to converge to a global minimum, 
+									different initializations more suitable to the dataset is encouraged when applied to different cases.</li>
+							    <li>After initialization, we compute the expectation for &Pi;c that maximizes the posterior probabilities and update iteratively till convergence.
+									In this implementation, the function sets 1000 iterations.</li>
+								</ul>	
+								
+<pre style="background: #222;color:#fff;"><code>
+	#mycluster.py
+	import numpy as np
+
+	def cluster(T, K, num_iters = 700, epsilon = 1e-12):
+		"""   
+		:param bow:
+			bag-of-word matrix of (num_doc, V), where V is the vocabulary size
+		:param K:
+			number of topics
+		:return:
+			idx of size (num_doc), idx should be 1, 2, 3 or 4
+		"""   
+		
+		'''Initialization'''
+		J=T.shape[1]
+		I=T.shape[0]
+		#try different initialization
+		pi_c=np.full((K,1),1/K)
+		posterior_Di_c=np.zeros((I,K))
+		mu=np.zeros((J,K))
+		for k in range(K):
+			mu_prep=T+np.random.uniform(0,np.sum(np.sum(T))/I,size=(I,J))
+			mu[:,k]=np.reshape(np.sum(mu_prep,axis=0)/np.sum(np.sum(mu_prep)),(J))
+		mu_temp=np.copy(mu)
+		for k in range(K):
+			for i in range(I):
+				for j in range(J):
+					mu_temp[j,k]=mu[j,k]**T[i,j]
+				posterior_Di_c[i,k]=np.prod(mu_temp[:,k])
+		tau_ic=np.zeros((I,K))
+		print('Initialization done.')
+		
+		print('EM Iteraiton...')
+		for count in range(num_iters):
+			
+			'''E-Step'''    
+			for k in range(K):
+				for i in range(I):
+					tau_ic[i,k]=pi_c[k]*posterior_Di_c[i,k]/np.dot(pi_c.T,posterior_Di_c[i,:].T)
+			
+			
+			'''M-Step'''
+			for k in range(K):
+				lower_temp=0        
+				for j in range(J):
+					for i in range(I):
+						lower_temp+=(tau_ic[i,k]*T[i,j])
+				for j in range(J):
+					upper_temp=0
+					for i in range(I):
+						upper_temp+=(tau_ic[i,k]*T[i,j])
+					mu[j,k]=upper_temp/lower_temp
+				pi_c[k]=np.sum(tau_ic[:,k])/I
+				mu_temp=np.copy(mu)
+				for i in range(I):
+					for j in range(J):
+						mu_temp[j,k]=mu[j,k]**T[i,j]
+					posterior_Di_c[i,k]=np.prod(mu_temp[:,k])
+
+		print('EM Iteration done.')
+
+		print('Computing final probability density estimaiton...')
+		p_Di=np.zeros((I,K))
+		for k in range(K):
+			for i in range(I):
+				p_Di[i,k]=pi_c[k]*posterior_Di_c[i,k]
+		print('Done.')
+		idx=np.zeros((I))
+		for i in range(I):
+			idx[i]=int(np.where(p_Di[i]==p_Di[i].max())[0])+1
+		#raise NotImplementedError
+		return idx	
+</code></pre>
+							
+						<ul><p></p><b>AccMeasure.py</b> : file contaning the evaluation function.</p>
+						<li>Compares results from mycluster.py to provided true cluster reuslts and return the accuracy.
+						</li></ul>
+<pre style="background: #222;color:#fff;"><code>
+	#AccMeasure.py
+	import scipy.io
+	import itertools
+	import numpy as np
+	
+	
+	def acc_measure(idx):
+		"""
+	
+		:param idx:
+			numpy array of (num_doc)
+		:return:
+			accuracy
+		"""
+	
+		mat = scipy.io.loadmat('data.mat')
+		mat = mat['X']
+		Y = mat[:, -1]
+	
+		# rotate for different idx assignments
+		best_acc = 0
+		for idx_order in itertools.permutations([1, 2, 3, 4]):
+	
+			for ind, label in enumerate(idx_order):
+				Y[(ind)*100:(ind+1)*100] = label
+	
+			acc = (Y == idx).sum() / Y.shape[0]
+			if acc > best_acc:
+				best_acc = acc
+	
+		return best_acc
+	
+	
+	if __name__ == '__main__':
+		acc_measure(np.array([1]*100 + [3]*100 + [2]*100 + [4]*100))
+</code></pre>
+
+						
+
+						<p><b>homework2.py</b> : the main file, calls on the previous files to run EM algorithm, accuracy evaluation and show results.</p>
+<pre style="background: #222;color:#fff;"><code>
+	#homework2.py
+	import scipy.io
+	from AccMeasure import acc_measure
+	from mycluster import cluster
+	#from mycluster_extra import cluster_extra
+	
+	mat = scipy.io.loadmat('data.mat')
+	mat = mat['X']
+	X = mat[:, :-1]
+	print(X[[0]],X.shape)
+	idx = cluster(X, 4)
+	
+	acc = acc_measure(idx)
+	
+	print('accuracy %.4f' % (acc))
+</code></pre>
+
+							<p><b>Results: </b> The results fluctuates around 92 to 96 accuracy. Reducing the
+								iteration numbers produces similar results, showing convergence before 1000 iterations. 
+								With this initialization method, 700 iterations shows confidence in
+								convergence.</p>
+<pre style="background: #36454F;color:#fff;"><code>
+	D:\Dak's Documents\GaTech\CSE 6740 Computational Data Analysis (ML)\homework2\homework2>py homework2.py
+	Initialization done.
+	EM Iteraiton...
+	EM Iteration done.
+	Computing final probability density estimaiton...
+	Done.
+	[1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1.
+	1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1.
+	1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1.
+	1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1.
+	1. 1. 1. 1. 3. 3. 2. 3. 3. 3. 4. 2. 4. 4. 3. 3. 3. 3. 4. 2. 3. 4. 3. 3.
+	3. 4. 3. 3. 3. 2. 2. 4. 3. 3. 3. 3. 4. 3. 3. 4. 3. 3. 4. 3. 3. 3. 3. 3.
+	3. 3. 1. 3. 3. 4. 3. 3. 3. 3. 3. 3. 3. 3. 3. 4. 1. 3. 3. 3. 4. 4. 4. 4.
+	2. 4. 3. 3. 3. 3. 3. 3. 3. 3. 2. 3. 3. 1. 3. 3. 3. 3. 2. 3. 3. 3. 3. 3.
+	3. 3. 3. 3. 2. 3. 3. 3. 4. 4. 4. 4. 4. 4. 4. 4. 4. 4. 4. 4. 4. 4. 4. 4.
+	4. 4. 4. 4. 4. 4. 4. 4. 4. 4. 4. 4. 4. 4. 4. 4. 4. 4. 4. 4. 4. 4. 4. 4.
+	4. 4. 4. 4. 4. 4. 4. 4. 4. 4. 4. 4. 4. 4. 4. 4. 4. 4. 4. 4. 4. 4. 4. 4.
+	4. 4. 4. 4. 4. 4. 4. 4. 4. 4. 4. 4. 4. 4. 4. 4. 4. 4. 4. 4. 4. 4. 4. 4.
+	4. 4. 4. 4. 4. 4. 4. 4. 4. 4. 4. 4. 2. 2. 2. 2. 2. 2. 2. 2. 2. 2. 2. 2.
+	2. 2. 2. 2. 2. 2. 2. 2. 2. 2. 2. 2. 2. 2. 2. 2. 2. 2. 2. 2. 2. 2. 2. 2.
+	2. 2. 2. 2. 2. 2. 2. 2. 2. 2. 2. 2. 2. 2. 2. 2. 2. 2. 2. 2. 2. 2. 2. 2.
+	2. 2. 2. 2. 2. 2. 2. 2. 2. 2. 2. 2. 2. 2. 2. 2. 2. 2. 2. 2. 2. 2. 2. 2.
+	2. 2. 2. 2. 2. 2. 2. 2. 2. 2. 2. 2. 2. 2. 2. 2.]
+	accuracy 0.9275
+</code></pre>
+
+							<a href="#nav"><img src="images/up.png"  width="28" height="25" id="fixedbutton"></a>
+								
+							</section>
+							
+					</div>
+					
+
+				<!-- Footer -->
+					<footer id="footer">
+						<section>
+							<form method="post" action="#">
+								<div class="fields">
+									<div class="field">
+										<label for="name">Name</label>
+										<input type="text" name="name" id="name" />
+									</div>
+									<div class="field">
+										<label for="email">Email</label>
+										<input type="text" name="email" id="email" />
+									</div>
+									<div class="field">
+										<label for="message">Message</label>
+										<textarea name="message" id="message" rows="3"></textarea>
+									</div>
+								</div>
+								<ul class="actions">
+									<li><input type="submit" value="Send Message" /></li>
+								</ul>
+							</form>
+						</section>
+						<section class="split contact">
+							<section class="alt">
+								<h3>Address</h3>
+								<p>935 Marietta St. NW #30318<br />
+								Atlanta, GA</p>
+							</section>
+							<section>
+								<h3>Phone</h3>
+								<p>US: (470) 923-3934</br>
+									TW: (886) 905-200-863</a></p>
+							</section>
+							<section>
+								<h3>Email</h3>
+								<p><a href="#">dakotameng@gmail.com</a></p>
+							</section>
+							<section>
+								<h3>Social</h3>
+								<ul class="icons alt">
+									<!--<li><a href="#" class="icon brands alt fa-twitter"><span class="label">Twitter</span></a></li>-->
+									<!--<li><a href="#" class="icon brands alt fa-facebook-f"><span class="label">Facebook</span></a></li>-->
+									<!--<li><a href="#" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li>-->
+									<li><a href="https://www.linkedin.com/in/Che-Ting-Meng1215" class="icon brands alt fa-linkedin"><span class="label">LinkedIn</span></a></li>
+									<li><a href="https://github.com/PsyDak-Meng" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
+								</ul>
+							</section>
+						</section>
+					</footer>
+
+				<!-- Copyright -->
+					<div id="copyright">
+						<ul><li>&copy; Cheting Meng</li><li>Design: HTML5 UP</li><li>Graphics Source: Google</li></ul>
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
