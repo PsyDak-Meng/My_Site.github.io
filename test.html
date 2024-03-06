@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Word Cloud</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/wordcloud2.js/1.0.6/wordcloud2.min.js"></script>
+<style>
+  #wordCloudCanvas {
+    width: 600px;
+    height: 400px;
+  }
+</style>
+</head>
+<body>
+
+<canvas id="wordCloudCanvas"></canvas>
+
+<script>
+// Example word data
+const words = [
+    { text: "Lorem", weight: 40 },
+    { text: "ipsum", weight: 30 },
+    { text: "dolor", weight: 25 },
+    { text: "sit", weight: 35 },
+    { text: "amet", weight: 45 },
+    { text: "consectetur", weight: 20 },
+    { text: "adipiscing", weight: 38 },
+    { text: "elit", weight: 42 }
+];
+
+// Draw the word cloud using wordcloud2.js
+wordcloud2(document.getElementById('wordCloudCanvas'), {
+    list: words,
+    gridSize: 8,
+    weightFactor: 10,  // Adjust the size of words
+    fontFamily: 'Arial',
+    color: 'random-dark',  // You can also specify a specific color
+    rotateRatio: 0.5  // The probability for each word to rotate
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,312 @@
+<!DOCTYPE HTML>
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>CheTing Meng Blog</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	
+	<body class="is-preload">
+		
+		<!-- Wrapper -->
+			<div id="wrapper" class="fade-in">
+
+				<!-- Intro -->
+					<!-- <div id="intro">
+						<h1 style="font-family: serif;" class="notranslate">Welcome to </br>CheTing Meng's Blog</h1>
+						<p> Junior data scientist and machine learning engineer from a rigorous engineering background.</p>
+						<ul class="actions">
+							<li><a href="#header" class="button icon solid solo fa-arrow-down scrolly">Continue</a></li>
+						</ul>
+					</div> -->
+					<!--Auto Translate-->
+					<div id="google_translate_element" style="color:white;">You can translate the content of this page by selecting a language in the box. But the best display would be in English.</div>
+					
+					<script type="text/javascript">
+					function googleTranslateElementInit() {
+					  new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+					}
+					</script>					
+					<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+					</div>
+					
+					
+					
+				<!-- Header -->
+					<header id="header">
+						<a href="index.html" class="logo">Video</a>
+					</header>
+
+				<!-- Nav -->
+					<nav id="nav">
+						<ul class="links">
+							<li><a href="index.html">Homepage</a></li>
+							<li><a href="DS.html">Data Science</a></li>
+							<li class="active"><a href="DL.html">Deep Learning</a></li>
+							<!--<li><a href="elements.html">Elements Reference</a></li>-->
+						</ul>
+						<ul class="icons">
+							<!--<li><a href="#" class="icon brands alt fa-twitter"><span class="label">Twitter</span></a></li>-->
+							<!--<li><a href="#" class="icon brands alt fa-facebook-f"><span class="label">Facebook</span></a></li>-->
+							<!--<li><a href="#" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li>-->
+							<li><a href="https://www.linkedin.com/in/Che-Ting-Meng1215" class="icon brands alt fa-linkedin"><span class="label">LinkedIn</span></a></li>
+							<li><a href="https://github.com/PsyDak-Meng" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
+						</ul>
+					</nav>
+				
+				<!-- Main -->
+					<div id="main">
+
+						<!-- Featured Post -->
+							<article class="post featured">
+								<header class="major">
+									<span class="date" id="current_date" disabled></span>
+									<script> 
+										n =  new Date(); 
+										y = n.getFullYear(); 
+										m = n.getMonth() + 1; 
+										d = n.getDate(); 
+										document.getElementById("current_date").innerHTML = "Date: " + m + "/" + d + "/" + y; 
+									</script>
+									<h2><b>Deep Learning Projects</b></h2>
+									
+							</header>
+							<blockquote>
+											
+								<b><font size="18">Relevant Coursework</br></font size></b>
+									<style>
+										#scroll-container {
+										border: 3px solid black;
+										border-radius: 5px;
+										height: 150px;
+										overflow: hidden;
+										}
+
+										#scroll-text {
+										height: 100%;
+										text-align: center;
+  
+										/* animation properties */
+										-moz-transform: translateY(-100%);
+										-webkit-transform: translateY(-100%);
+										transform: translateY(-100%);
+										
+										-moz-animation: my-animation 5s linear infinite;
+										-webkit-animation: my-animation 5s linear infinite;
+										animation: my-animation 5s linear infinite;
+										}
+
+										/* for Firefox */
+										@-moz-keyframes my-animation {
+										from { -moz-transform: translateY(-100%); }
+										to { -moz-transform: translateY(100%); }
+										}
+
+										/* for Chrome */
+										@-webkit-keyframes my-animation {
+										from { -webkit-transform: translateY(-100%); }
+										to { -webkit-transform: translateY(100%); }
+										}
+
+										@keyframes my-animation {
+										from {
+											-moz-transform: translateY(-100%);
+											-webkit-transform: translateY(-100%);
+											transform: translateY(-100%);
+										}
+										to {
+											-moz-transform: translateY(100%);
+											-webkit-transform: translateY(100%);
+											transform: translateY(100%);
+										}
+										}
+									</style>
+									<div id="scroll-container">
+										<div id="scroll-text">
+										  CS 6746: Computer Vision<br>
+										  CSE 6740: Computational Data Analysis (ML)<br>
+										  CSE 8803: Data Science in Social Networks<br>
+										  CS 7650: Natural Language Processing
+										<div>
+									  </div>
+									</blockquote>
+							</article>
+							
+							
+							
+							
+							<a id="DL" style="visibility: hidden;"></a>	
+							
+							<section class="posts">
+								<article>
+									<header>
+										<span class="date">2024 @GT Hacklytics</span>
+										<h2><a href="https://github.com/PsyDak-Meng/PalmVerse">PalmVerse: AI Sign Language Video-to-Text & Audio</h2>
+									</header>
+									<a href="https://github.com/PsyDak-Meng/PalmVerse" class="image fit"><img src="images/asl.png" alt="" /></a>
+									<p>Bridged mutism communication gap with computer vision and deep learning. Developed an AI tool that converts
+										video livestream to textual and audio output.<br>
+										<br>
+										Used OpenCV and ffmpeg algorithms to track hand landhand sign landmarks in real-time. 
+										Then developed a CNN based attention mechanism model with TensorFlow to recognize hand sign alphabets at 90% accuracy.
+									<ul class="actions special">
+										<li><a href="" class="primary button">Demo Video</a></li>
+										<li><a href="https://github.com/PsyDak-Meng/PalmVerse" class="button">Github Repo</a></li>
+									</ul>
+								</article>
+								<article>
+									<header>
+										<span class="date">2023</span>
+										<h2><a href="https://github.com/PsyDak-Meng/My_bot/tree/master">Personalized Chatbot: Efficient Finetuning & RAG</h2>
+									</header>
+									<a href="https://github.com/PsyDak-Meng/My_bot/tree/master" class="image fit"><img src="images/chatbot.jpg" alt="" /></a>
+									<p>Finetuned Huggingface GPT-neo-x model with 20B parameters with QLoRA, 
+										reducing trainable parameters to 0.08% in Colab environment to enable faster training.<br> 
+										<br>
+										Deployed RAG with cosine-similarity dense passage retrieval to enable output optimization and reduce hallucination.
+										
+									<ul class="actions special">
+										<li><a href="" class="primary button">Demo Video</a></li>
+										<li><a href="https://github.com/PsyDak-Meng/My_bot/tree/master" class="button">Github Repo</a></li>
+									</ul>
+								</article>
+								<article>
+									<header>
+										<span class="date">2023</span>
+										<h2><a href="https://github.com/rentruewang/bocoel">BoCoEl: LLM Efficient Evaluation tool with Bayesian Optimization</h2>
+									</header>
+									<a href="https://github.com/rentruewang/bocoel" class="image fit"><img src="images/bocoel.png" alt="" /></a>
+									<p>Applies Bayesian optimization to workwith expensive-to-evaluate LLMs.
+										Bocoel uses Bayesian optimization as a backbone for exploring the embedding space given by our corpus, which allows it to select a good subset acting as a mini snapshot of the corpus.<br>
+										<br>
+										Bocoel works in the following steps:<br>
+										1) Encode individual entry into embeddings (cheaper & faster than LLM and reusable).<br>
+										2) Use Bayesian optimization to select queries to evaluate.<br>
+										3) Use the queries to retrieve from our corpus (with the encoded embeddings).<br>
+										4) The evaluations generated are easily managed by the provided manager utility.<br>
+										<br>
+										To our knowledge, this is the first work aiming to reduce computation costs during evaluation (benchmarking) with a (possibly dynamic) budget.
+									<ul class="actions special">
+										<li><a href="https://github.com/rentruewang/bocoel" class="button">Github Repo</a></li>
+									</ul>
+								</article>
+								
+								<article>
+									<header>
+										<span class="date">2023</span>
+										<h2><a href="https://github.com/PsyDak-Meng/Amazon-Dissatisfaction-Prediction">GNN Amazon Customer Disatisfaction Prediction</h2>
+									</header>
+									<a href="https://github.com/PsyDak-Meng/Amazon-Dissatisfaction-Prediction" class="image fit"><img src="images/amz.jpg" alt="" /></a>
+									<p>Developed a BERT embedded tripartite Graph Convolutional Network (GCN) to accurately 
+										predicted Amazon customer dissatisfaction score .
+										By leveraging GCN on tripartite graph using BERT embeddings of 30+gb amazon user-product-eview text dataset as nodes in PyTorch, 
+										reached at near-perfect 0.98 R2 regression score.<br>
+										<br>
+										During training, boosted accuracy over 7% by applying multitask learning on human-annotated review helpfulness and sentiment labels to beat multimodal (BERT+CLIP) baseline by significant margins.  
+										
+									<ul class="actions special">
+										<li><a href="https://github.com/PsyDak-Meng/Amazon-Dissatisfaction-Prediction" class="button">Github Repo</a></li>
+									</ul>
+								</article>
+								<!-- <article>
+									<header>
+										<span class="date">Fall, 2022 @GT The Agency</span>
+										<h2><a href="https://github.com/PsyDak-Meng/Malaria_Infection_Detector">Malaria Infection Diagnostic</a></h2>
+									</header>
+									<a href="https://github.com/PsyDak-Meng/Malaria_Infection_Detector" class="image fit" id="Malaria_image"><img src="images/Malaria.jpg"  width="100%" height="100%" alt="" /></a>
+									<script>
+										document.getElementById("Malaria_image").style.opacity = "0.9";
+									</script>
+									<p>Georgia Tech machine learning club <a href="https://ml.gatech.edu/agency">(The Agency)</a> computer vision project. </br>Deployed and tuned hyperparamters of ResNet CNN model, 
+										then ran the model using servers from Google Collab for image classification, acheived over 98% accuracy.</br></br>
+										#PyTorch&ensp;#CNN&ensp;#Python
+									</p>
+									
+									<ul class="actions special">
+										<li><a href="https://github.com/PsyDak-Meng/Malaria_Infection_Detector" class="button">Github Repo</a></li>
+									</ul>
+								</article> -->
+							
+								<div align="left" vertical-align="bottom">
+									<a href="#nav"><img src="images/up.png"  width="28" height="25" id="fixedbutton"></a>
+								</div>
+							</section>
+
+						<!-- Footer -->
+							<footer>
+								<div class="pagination">
+									<!--<a href="#" class="previous">Prev</a>-->
+									<a href="#" class="page active">1</a>
+									<!--<a href="#" class="page">2</a>
+									<a href="#" class="page">3</a>
+									<span class="extra">&hellip;</span>
+									<a href="#" class="page">8</a>
+									<a href="#" class="page">9</a>
+									<a href="#" class="page">10</a>
+									<a href="#" class="next">Next</a>-->
+								</div>
+							</footer>
+
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<section>
+							<h2>Contact Me.</h2>
+							<p>
+								Hope you enjoyed my portfolio :) , if you have opportunities suitable for me, have interest in my work or me in general, please don't hesitate to reach out!
+							</p>
+						</section>
+						<section class="split contact">
+							<section class="alt">
+								<h3>Address</h3>
+								<p>935 Marietta St. NW #30318<br />
+								Atlanta, GA</p>
+							</section>
+							<section>
+								<h3>Phone</h3>
+								<p>US: (470) 923-3934</br>
+									TW: (886) 905-200-863</a></p>
+							</section>
+							<section>
+								<h3>Email</h3>
+								<p><a href="#">dakotameng@gmail.com</a></p>
+							</section>
+							<section>
+								<h3>Social</h3>
+								<ul class="icons alt">
+									<!--<li><a href="#" class="icon brands alt fa-twitter"><span class="label">Twitter</span></a></li>-->
+									<!--<li><a href="#" class="icon brands alt fa-facebook-f"><span class="label">Facebook</span></a></li>-->
+									<!--<li><a href="#" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li>-->
+									<li><a href="https://www.linkedin.com/in/Che-Ting-Meng1215" class="icon brands alt fa-linkedin"><span class="label">LinkedIn</span></a></li>
+									<li><a href="https://github.com/PsyDak-Meng" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
+								</ul>
+							</section>
+						</section>
+					</footer>
+
+				<!-- Copyright -->
+					<div id="copyright">
+						<ul><li>&copy; CheTing Meng</li><li>Design: HTML5 UP</li><li>Graphics Source: Google</li>
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
